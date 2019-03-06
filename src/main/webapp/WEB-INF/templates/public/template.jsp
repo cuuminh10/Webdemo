@@ -4,6 +4,9 @@
 	<!-- Header -->
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 	<!-- End Header -->
+	<!-- Menu -->
+	<tiles:insertAttribute name="menubar"></tiles:insertAttribute>
+		<!--End Menu -->
 		<!-- Body -->
 		<tiles:insertAttribute name="body"></tiles:insertAttribute>
 		<!--End Body -->

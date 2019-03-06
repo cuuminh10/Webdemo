@@ -44,11 +44,12 @@
    <!--Start Public -->
     <definition name="public.template" template="/WEB-INF/templates/public/template.jsp">
     <put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
+    <put-attribute name="menubar" value="/WEB-INF/templates/public/menubar.jsp" />
     <put-attribute name="body" value="" />
     <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
   </definition>
    
-    <definition name="public.index" extends="public.template">
+   <definition name="public.index" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/views/public/index/index.jsp" />
   </definition>
 </tiles-definitions>
