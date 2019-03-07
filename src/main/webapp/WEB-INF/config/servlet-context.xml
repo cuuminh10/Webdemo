@@ -41,6 +41,7 @@
 	<bean id="Defines" class="springmvc.constant.Defines">
 		<property name="urlPublic" value="/Webdemo/templates/public"></property>
 		<property name="urlAdmin" value="/Webdemo/templates/admin"></property>
+		<property name="urlLogin" value="/Webdemo/templates/login"></property>
 		<property name="superAdmin" value="admin"></property>
 	</bean>
 	<!-- Tự động vào foder classes -->

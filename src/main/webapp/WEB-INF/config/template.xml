@@ -52,4 +52,10 @@
    <definition name="public.index" extends="public.template">
     <put-attribute name="body" value="/WEB-INF/views/public/index/index.jsp" />
   </definition>
+  <!-- LOGIN -->
+  <definition template="/WEB-INF/views/login/index.jsp" name="auth.login"> 
+  </definition>
+  
+   <!-- 403 -->
+  <definition template="/WEB-INF/views/403/index.jsp" name="auth.403"> </definition>
 </tiles-definitions>

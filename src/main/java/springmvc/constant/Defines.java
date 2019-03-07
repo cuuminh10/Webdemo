@@ -5,11 +5,19 @@ public class Defines {
 	// @TODO
 	public String urlPublic;
 	public String urlAdmin;
+	public String urlLogin;
 	public String superAdmin;
 	public static final String DIR_UPLOAD="files";
 	public static final String[] nameAccess= {"jpg","png","gif"};
 	public final String SUCCESS ="Xử lý thành công";
 	public final String ERROR = "Có lỗi trong quá trình";
+	
+	public String getUrlLogin() {
+		return urlLogin;
+	}
+	public void setUrlLogin(String urlLogin) {
+		this.urlLogin = urlLogin;
+	}
 	public String getUrlPublic() {
 		return urlPublic;
 	}
@@ -23,10 +31,12 @@ public class Defines {
 		this.urlAdmin = urlAdmin;
 	}
 	
-	public Defines(String urlPublic, String urlAdmin, String superAdmin) {
+	
+	public Defines(String urlPublic, String urlAdmin, String urlLogin, String superAdmin) {
 		super();
 		this.urlPublic = urlPublic;
 		this.urlAdmin = urlAdmin;
+		this.urlLogin = urlLogin;
 		this.superAdmin = superAdmin;
 	}
 	public String getSuperAdmin() {

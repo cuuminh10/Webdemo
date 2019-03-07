@@ -43,10 +43,10 @@
 	                  <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 	                    <ul class="nav navbar-nav">
 	                      <li class="dropdown">
-	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hoang<b class="caret"></b></a>
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">${userInfo.fullname}<b class="caret"></b></a>
 	                        <ul class="dropdown-menu animated fadeInUp">
-<%-- 	                          <li><a href="${pageContext.request.contextPath}/admin/user/edit/${idAccount}">Profile</a></li>
- --%>	                          <li><a href="${pageContext.request.contextPath}/auth/logout">Logout</a></li>
+	                          <li><a href="${pageContext.request.contextPath}/admin/user/edit/${idAccount}">Profile</a></li>
+ 	                          <li><a href="${pageContext.request.contextPath}/auth/logout">Logout</a></li>
 	                        </ul>
 	                      </li>
 	                    </ul>
