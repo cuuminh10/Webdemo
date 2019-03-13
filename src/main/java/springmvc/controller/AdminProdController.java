@@ -8,13 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,6 +31,7 @@ import springmvc.bean.Products;
 import springmvc.constant.Defines;
 import springmvc.dao.CategoryDAO;
 import springmvc.dao.ProductsDAO;
+import springmvc.dao.WarehouseDAO;
 
 @Controller
 @RequestMapping("admin/prod")
@@ -43,6 +45,9 @@ public class AdminProdController {
 	
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired
+	private WarehouseDAO warehouseDAO;
 	
 	private List<String> listMenu = new ArrayList<String>();
 	
@@ -85,6 +90,7 @@ public class AdminProdController {
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String add(@ModelAttribute("Products") Products products,@RequestParam("hinhanh") CommonsMultipartFile cmf,HttpServletRequest request,RedirectAttributes rs) {
 		/*Get time now*/
+		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		Timestamp time = new Timestamp(date.getTime());
@@ -141,6 +147,7 @@ public class AdminProdController {
 	@RequestMapping(value="edit/{id}",method=RequestMethod.POST)
 	public String edit(HttpServletRequest request,@RequestParam("hinhanh") CommonsMultipartFile cmf,RedirectAttributes rs,ModelMap map,@PathVariable(value="id",required=false) Integer id,@ModelAttribute("products") Products products) {
 		String filename="";
+		
 		String filePicOld = productsDAO.getItem(id).getPicture();
 		String filePIcNew = cmf.getOriginalFilename();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -179,12 +186,37 @@ public class AdminProdController {
 		}
 		return "redirect:/admin/prod";
 	}
+	@RequestMapping("del/{id}")
+	public String del(@PathVariable(value="id",required=false) Integer id,RedirectAttributes rs) {
+		if(productsDAO.delItem(id) > 0) {
+			rs.addFlashAttribute("msg",defines.SUCCESS);
+			if(warehouseDAO.getitems(id) != null) {
+				warehouseDAO.delItem(id);
+			}
+		}else {
+			rs.addFlashAttribute("err",defines.ERROR);
+		}
+		return "redirect:/admin/prod";
+	}
+	@RequestMapping(value="update/{id}",method=RequestMethod.POST,produces="application/json")
+	@ResponseBody
+	public String updateQty(@PathVariable (value="id",required=false) Integer id,@RequestParam("qty") Integer qty) {
+		System.out.println(id);
+		System.out.println(qty);
+		if(productsDAO.getItem(id)  != null) {
+			if(warehouseDAO.getitems(id) != null) {
+				warehouseDAO.update(id, qty);
+			}else {
+				warehouseDAO.additems(id, qty);
+			}
+		}
+		return "{\"id_prod\": \""+warehouseDAO.getitems(id).getId_prod()+"\", \"qty\": \""+warehouseDAO.getitems(id).getQuanlity()+"\"}";
+	}
 	public void dequy(HashMap<Integer, Categories> hmap, int key, String c, String url, String info) {
 		int i = 0;
 		String table = "";
 		for (Map.Entry<Integer, Categories> list : hmap.entrySet()) {
 				if (list.getValue().getId_parent() == key && info.equalsIgnoreCase("add")) {
-
 					table = "<option value=" + list.getKey() + ">" + c + list.getValue().getName() + "</option>";
 					listMenu.add(table);
 					hmap.remove(hmap.get(list.getKey()));

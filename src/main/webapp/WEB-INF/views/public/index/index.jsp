@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-	
+ <%@include file="/templates/taglib.jsp"%>
 	<!-- Home -->
-
 	<div class="home">
 		<div class="home_slider_container">
 			
 			<!-- Home Slider -->
 			<div class="owl-carousel owl-theme home_slider">
-				
 				<!-- Slider Item -->
 				<div class="owl-item home_slider_item">
 					<div class="home_slider_background" style="background-image:url(${defines.urlPublic}/images/home_slider_1.jpg)"></div>
@@ -130,85 +127,27 @@
 				<div class="col">
 					
 					<div class="product_grid">
-
+						<c:forEach items="${listItem}" var="item">
 						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_1.jpg" alt=""></div>
-							<div class="product_extra product_new"><a href="categories.html">New</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
+							<div class="product">
+								<div class="product_image"><img src="${pageContext.request.contextPath}/files/${item.picture}" alt=""></div>
+								<div class="product_extra product_new"><a href="categories.html">New</a></div>
+								<div class="product_content">
+									<div class="product_title"><a href="product.html">${item.name}</a></div>
+									<div class="product_price">$${item.price}</div>
+								</div>
 							</div>
-						</div>
-
+						</c:forEach>
 						<!-- Product -->
-						<div class="product">
+						<%-- <div class="product">
 							<div class="product_image"><img src="${defines.urlPublic}/images/product_2.jpg" alt=""></div>
 							<div class="product_extra product_sale"><a href="categories.html">Sale</a></div>
 							<div class="product_content">
 								<div class="product_title"><a href="product.html">Smart Phone</a></div>
 								<div class="product_price">$670</div>
 							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_3.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_4.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_5.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_6.jpg" alt=""></div>
-							<div class="product_extra product_hot"><a href="categories.html">Hot</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_7.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="${defines.urlPublic}/images/product_8.jpg" alt=""></div>
-							<div class="product_extra product_sale"><a href="categories.html">Hot</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
+						</div> --%>
 					</div>
-						
 				</div>
 			</div>
 		</div>

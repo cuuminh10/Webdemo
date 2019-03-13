@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@include file="/templates/taglib.jsp"%>
-
-                
 				<c:if test="${not empty msg}">
 					<div class="alert alert-warning">
 				  		<strong>Warning!</strong> ${msg}.
@@ -41,6 +39,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Tên</th>
+                                        <th>Số lượng</th>
                                         <th>Danh mục</th>
                                         <th>Hình ảnh</th>
                                       	<th>ngay dang</th>
@@ -54,11 +53,12 @@
                                 	<tr class="odd gradeX">
                                         <td>${item.id}</td>
                                         <td>${item.name}</td>
+                                        <td style="text-align: center;"><input type="text" name="quanlity" id="quanlity_${item.id}" style="width: 30px;" value="" onblur="autoAddQty(quanlity_${item.id})"/></td>
                                         <td>${item.cname}</td>
                                          <td class="center text-center">
                                          <c:choose>
                                          	<c:when test="${not empty item.picture}">
-                                         		<img alt="" src="${pageContext.request.contextPath}/files/${item.picture}"/>
+                                         		<img alt="" src="${pageContext.request.contextPath}/files/${item.picture}" width="100" height="100"/>
                                          	</c:when>
                                          	<c:otherwise>
                                          			<p>k co hinh anh</p>
@@ -76,7 +76,7 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-
+							
                            <%--  <!-- Pagination -->
                             <nav class="text-center" aria-label="...">
                                 <ul class="pagination">
@@ -100,7 +100,32 @@
                                 </ul>
                             </nav>
                             <!-- /.pagination --> --%>
-
+						<script>
+								function autoAddQty(id){
+									if(confirm("Bạn có muộn cập nhấp không")){
+										var id_prod = id.id;
+											$.ajax({
+												url: '${pageContext.request.contextPath}/admin/prod/update/'+id_prod.substring(9),
+												type: 'POST',
+												data: {qty:id.value},
+												dataType: "json",
+												async: true,                                                    
+												cache: false,
+												success: function(data){
+													// Xử lý thành công
+													console.log(data.qty);
+													document.getElementById("quanlity_"+data.id_prod).value = data.qty;
+													alert('cập nhập thành công')
+												},
+												error: function (data){
+													alert('cập nhập không thành công')
+													console.log(data);
+												}
+											});
+									}
+									return;
+								}
+						</script>
                         </div>
                     </div>
                     <!-- /.row -->

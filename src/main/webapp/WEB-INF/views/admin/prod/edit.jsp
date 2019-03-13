@@ -23,7 +23,7 @@
                                        <p class="help-block"><em>Định dạng: jpg, png, jpeg,...</em></p>
                                        <c:choose>
                                        	<c:when test="${not empty prod.picture}">
-                                       		  <img alt="" src="${pageContext.request.contextPath}/files/${prod.picture}"/>
+                                       		  <img alt="" width="100" height="100" src="${pageContext.request.contextPath}/files/${prod.picture}"/>
                                        	</c:when>
                                        	<c:otherwise>
                                        		<p class="help-block">Empty Image</p>

@@ -35,4 +35,9 @@ public class ProductsDAO {
 		return jdbcTemplate.update(sql,new Object[] {prod.getName(),prod.getId_cat(),prod.getPrice(),prod.getSale(),prod.getDate_create(),prod.getPicture(),prod.getStatus(),prod.getDescription(),1,prod.getId()});
 		
 	}
+
+	public int delItem(Integer id) {
+		String sql="DELETE FROM products where id=?";
+		return jdbcTemplate.update(sql,new Object[] {id});
+	}
 }
